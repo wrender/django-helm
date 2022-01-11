@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: django
+  labels:
+    app: mariadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: django-mariadb
+        image: mariadb
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "XtH6I7pfTCKj"
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql        
+      restartPolicy: Always
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: django-mariadb-pv-claim
+
+
