@@ -91,6 +91,10 @@ persistence:
   size: 8Gi
 
 postgresql:
+
+  postgresqlDatabase: "djangodb"
+  postgresqlPassword: ""
+
   image:
     registry: docker.io
     repository: bitnami/postgresql
